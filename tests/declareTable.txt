@@ -1,0 +1,15 @@
+Program(
+  ProcedureDeclaration(
+    main,
+    Parameters(),
+    Variables(
+      VariableDeclaration(
+        i,
+        NamedTypeExpression(
+          int))),
+    Body(
+      AssignStatement(
+        NamedVariable(
+          i),
+        IntLiteral(
+          3)))))

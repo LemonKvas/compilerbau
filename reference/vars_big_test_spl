@@ -1,0 +1,182 @@
+Variable allocation for procedure 'callbyval':
+  - size of argument area = 8
+  - size of localvar area = 0
+  - size of outgoing area = -1
+  - frame size = 4
+
+  Stack layout:
+    |  ...   | 
+    | par y  | <- FP + 4
+    | par x  | <- FP + 0
+    ├─BEGIN──┤ <- FP
+    | Old FP | <- SP + 0
+    └──END───┘ <- SP
+
+Variable allocation for procedure 'callbyref':
+  - size of argument area = 8
+  - size of localvar area = 0
+  - size of outgoing area = -1
+  - frame size = 4
+
+  Stack layout:
+    |  ...   | 
+    | par y  | <- FP + 4
+    | par x  | <- FP + 0
+    ├─BEGIN──┤ <- FP
+    | Old FP | <- SP + 0
+    └──END───┘ <- SP
+
+Variable allocation for procedure 'callArray':
+  - size of argument area = 4
+  - size of localvar area = 0
+  - size of outgoing area = -1
+  - frame size = 4
+
+  Stack layout:
+    |  ...   | 
+    | par v  | <- FP + 0
+    ├─BEGIN──┤ <- FP
+    | Old FP | <- SP + 0
+    └──END───┘ <- SP
+
+Variable allocation for procedure 'callRecursive':
+  - size of argument area = 8
+  - size of localvar area = 0
+  - size of outgoing area = 8
+  - frame size = 16
+
+  Stack layout:
+    |      ...      | 
+    | par res       | <- FP + 4
+    | par n         | <- FP + 0
+    ├─────BEGIN─────┤ <- FP
+    | Old FP        | <- SP + 12
+    | Old Return    | <- FP - 8
+    ├─outgoing area─┤ 
+    | arg 2         | <- SP + 4
+    | arg 1         | <- SP + 0
+    ├──────END──────┤ <- SP
+    |      ...      | 
+
+Variable allocation for procedure 'manyargs':
+  - size of argument area = 16
+  - size of localvar area = 0
+  - size of outgoing area = 16
+  - frame size = 24
+
+  Stack layout:
+    |      ...      | 
+    | par l         | <- FP + 12
+    | par k         | <- FP + 8
+    | par j         | <- FP + 4
+    | par i         | <- FP + 0
+    ├─────BEGIN─────┤ <- FP
+    | Old FP        | <- SP + 20
+    | Old Return    | <- FP - 8
+    ├─outgoing area─┤ 
+    | arg 4         | <- SP + 12
+    | arg 3         | <- SP + 8
+    | arg 2         | <- SP + 4
+    | arg 1         | <- SP + 0
+    ├──────END──────┤ <- SP
+    |      ...      | 
+
+Variable allocation for procedure 'hide':
+  - size of argument area = 0
+  - size of localvar area = 8
+  - size of outgoing area = -1
+  - frame size = 12
+
+  Stack layout:
+    |    ...    | 
+    ├───BEGIN───┤ <- FP
+    | var myInt | <- FP - 4
+    | var hide  | <- FP - 8
+    ├───────────┤ 
+    | Old FP    | <- SP + 0
+    └────END────┘ <- SP
+
+Variable allocation for procedure 'main':
+  - size of argument area = 0
+  - size of localvar area = 4640
+  - size of outgoing area = 16
+  - frame size = 4664
+
+  Stack layout:
+    |      ...      | 
+    ├─────BEGIN─────┤ <- FP
+    | var i         | <- FP - 4
+    | var j         | <- FP - 8
+    | var k         | <- FP - 48
+    | var l         | <- FP - 304
+    | var m         | <- FP - 504
+    | var n         | <- FP - 544
+    | var t         | <- FP - 4640
+    ├───────────────┤ 
+    | Old FP        | <- SP + 20
+    | Old Return    | <- FP - 4648
+    ├─outgoing area─┤ 
+    | arg 4         | <- SP + 12
+    | arg 3         | <- SP + 8
+    | arg 2         | <- SP + 4
+    | arg 1         | <- SP + 0
+    ├──────END──────┤ <- SP
+    |      ...      | 
+
+Variable allocation for procedure 'ausgabe':
+  - size of argument area = 4
+  - size of localvar area = 0
+  - size of outgoing area = 4
+  - frame size = 12
+
+  Stack layout:
+    |      ...      | 
+    | par nummer    | <- FP + 0
+    ├─────BEGIN─────┤ <- FP
+    | Old FP        | <- SP + 8
+    | Old Return    | <- FP - 8
+    ├─outgoing area─┤ 
+    | arg 1         | <- SP + 0
+    ├──────END──────┤ <- SP
+    |      ...      | 
+
+Variable allocation for procedure 'check':
+  - size of argument area = 16
+  - size of localvar area = 0
+  - size of outgoing area = 8
+  - frame size = 16
+
+  Stack layout:
+    |      ...      | 
+    | par expectedJ | <- FP + 12
+    | par expectedI | <- FP + 8
+    | par j         | <- FP + 4
+    | par i         | <- FP + 0
+    ├─────BEGIN─────┤ <- FP
+    | Old FP        | <- SP + 12
+    | Old Return    | <- FP - 8
+    ├─outgoing area─┤ 
+    | arg 2         | <- SP + 4
+    | arg 1         | <- SP + 0
+    ├──────END──────┤ <- SP
+    |      ...      | 
+
+Variable allocation for procedure 'error':
+  - size of argument area = 8
+  - size of localvar area = 0
+  - size of outgoing area = 4
+  - frame size = 12
+
+  Stack layout:
+    |      ...      | 
+    | par expectedI | <- FP + 4
+    | par i         | <- FP + 0
+    ├─────BEGIN─────┤ <- FP
+    | Old FP        | <- SP + 8
+    | Old Return    | <- FP - 8
+    ├─outgoing area─┤ 
+    | arg 1         | <- SP + 0
+    ├──────END──────┤ <- SP
+    |      ...      | 
+
+

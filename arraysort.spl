@@ -1,0 +1,49 @@
+type A = array [5] of int;
+
+proc main() {
+	var arr : A;
+	var i : int;
+
+	i := 0;
+	while(i < 5){
+		readi(arr[i]);
+		i := i + 1;
+	}
+	
+	sort(arr);
+	
+	i := 0;
+	
+	while(i < 5){
+		printi(arr[i]);
+		i := i + 1;
+	}
+}
+
+proc swap(ref i: int, ref j : int){
+	var k : int;
+	k := i;
+	i := j;
+	j := k;
+}
+
+proc sort(ref arr: A){
+	var i : int;
+	var j : int;
+	
+	i := 0;
+	
+	while(i < 5){
+		j := i;
+		while(j < 4){
+			if (arr[j] > arr[j+1]){
+				swap(arr[j], arr[j+1];
+			}
+			j := j + 1;
+		}
+		i := i + 1;
+	}
+}
+
+
+

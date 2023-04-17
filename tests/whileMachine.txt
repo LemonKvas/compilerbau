@@ -1,0 +1,29 @@
+main:
+        sub     $29,$29,16              ; allocate frame
+        stw     $25,$29,8               ; save old frame pointer
+        add     $25,$29,16              ; setup new frame pointer
+        stw     $31,$25,-12             ; save return register
+        add     $8,$25,-4
+        add     $9,$0,0
+        stw     $9,$8,0
+L0:
+        add     $8,$25,-4
+        ldw     $8,$8,0
+        add     $9,$0,3
+        bge     $8,$9,L1
+        add     $8,$25,-4
+        ldw     $8,$8,0
+        stw     $8,$29,0                ; store argument #0
+        jal     printi
+        add     $8,$25,-4
+        add     $9,$25,-4
+        ldw     $9,$9,0
+        add     $10,$0,1
+        add     $9,$9,$10
+        stw     $9,$8,0
+        j       L0
+L1:
+        ldw     $31,$25,-12             ; restore return register
+        ldw     $25,$29,8               ; restore old frame pointer
+        add     $29,$29,16              ; release frame
+        jr      $31                     ; return

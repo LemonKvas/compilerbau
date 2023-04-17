@@ -1,0 +1,9 @@
+type A33 = array [3] of array [3] of int;
+
+proc main() {
+
+var i : A33;
+
+i[0][1] := 22;
+
+}

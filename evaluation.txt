@@ -1,0 +1,1570 @@
+[2021-12-08 09:21:08.606678] Start of evaluation log for submission 'fdb055c6-cbf7-4420-a039-fcccc125842d'.
+[2021-12-08 09:21:08.606972] Team member: ('Becker', 'Dominik Maximilian', '5317154')
+[2021-12-08 09:21:08.607151] Team member: ('Gasevic', 'Daniel', '5293304')
+[2021-12-08 09:21:08.637685] Preparing the sandbox
+[2021-12-08 09:21:09.414054] Unpacking submission in sandbox
+[2021-12-08 09:21:09.861088] Building the test subject
+[2021-12-08 09:21:09.861437] Identified the Java variant.
+[2021-12-08 09:21:10.001686] Building Java solution with maven.
+[2021-12-08 09:21:21.313435] Maven log:
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.google.inject.internal.cglib.core.$ReflectUtils$1 (file:/usr/share/maven/lib/guice.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+WARNING: Please consider reporting this to the maintainers of com.google.inject.internal.cglib.core.$ReflectUtils$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------< de.thm.mni.compilerbau.spl-reference:spl >--------------
+[INFO] Building spl 0.1
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jflex-maven-plugin:1.7.0:generate (default) @ spl ---
+[INFO]   generated /home/solution/java/target/generated-sources/jflex/de/thm/mni/compilerbau/phases/_01_scanner/Scanner.java
+[INFO] 
+[INFO] --- cup-maven-plugin:11b-20160615:generate (default) @ spl ---
+Warning : *** Shift/Reduce conflict found in state #78
+  between ifstatement ::= IF LPAREN expressions RPAREN statement (*) 
+  and     ifstatement ::= IF LPAREN expressions RPAREN statement (*) ELSE statement 
+  under symbol ELSE
+  Resolved in favor of shifting.
+
+===== Viable Prefix Recognizer =====
+START lalr_state [0]: {
+  [globalDeclaration ::= (*) procedureDeclaration , {EOF TYPE PROC }]
+  [globalDeclarations ::= (*) globalDeclaration globalDeclarations , {EOF }]
+  [globalDeclaration ::= (*) typeDeclaration , {EOF TYPE PROC }]
+  [procedureDeclaration ::= (*) PROC IDENT LPAREN parameter RPAREN LCURL variables statements RCURL , {EOF TYPE PROC }]
+  [program ::= (*) globalDeclarations , {EOF }]
+  [typeDeclaration ::= (*) TYPE IDENT EQ typeExpression SEMIC , {EOF TYPE PROC }]
+  [globalDeclarations ::= (*) , {EOF }]
+  [$START ::= (*) program EOF , {EOF }]
+}
+transition on TYPE to state [7]
+transition on globalDeclaration to state [6]
+transition on PROC to state [5]
+transition on globalDeclarations to state [4]
+transition on typeDeclaration to state [3]
+transition on procedureDeclaration to state [2]
+transition on program to state [1]
+
+-------------------
+lalr_state [1]: {
+  [$START ::= program (*) EOF , {EOF }]
+}
+transition on EOF to state [115]
+
+-------------------
+lalr_state [2]: {
+  [globalDeclaration ::= procedureDeclaration (*) , {EOF TYPE PROC }]
+}
+
+-------------------
+lalr_state [3]: {
+  [globalDeclaration ::= typeDeclaration (*) , {EOF TYPE PROC }]
+}
+
+-------------------
+lalr_state [4]: {
+  [program ::= globalDeclarations (*) , {EOF }]
+}
+
+-------------------
+lalr_state [5]: {
+  [procedureDeclaration ::= PROC (*) IDENT LPAREN parameter RPAREN LCURL variables statements RCURL , {EOF TYPE PROC }]
+}
+transition on IDENT to state [20]
+
+-------------------
+lalr_state [6]: {
+  [globalDeclaration ::= (*) procedureDeclaration , {EOF TYPE PROC }]
+  [globalDeclarations ::= globalDeclaration (*) globalDeclarations , {EOF }]
+  [globalDeclarations ::= (*) globalDeclaration globalDeclarations , {EOF }]
+  [globalDeclaration ::= (*) typeDeclaration , {EOF TYPE PROC }]
+  [procedureDeclaration ::= (*) PROC IDENT LPAREN parameter RPAREN LCURL variables statements RCURL , {EOF TYPE PROC }]
+  [typeDeclaration ::= (*) TYPE IDENT EQ typeExpression SEMIC , {EOF TYPE PROC }]
+  [globalDeclarations ::= (*) , {EOF }]
+}
+transition on TYPE to state [7]
+transition on globalDeclaration to state [6]
+transition on globalDeclarations to state [19]
+transition on PROC to state [5]
+transition on typeDeclaration to state [3]
+transition on procedureDeclaration to state [2]
+
+-------------------
+lalr_state [7]: {
+  [typeDeclaration ::= TYPE (*) IDENT EQ typeExpression SEMIC , {EOF TYPE PROC }]
+}
+transition on IDENT to state [8]
+
+-------------------
+lalr_state [8]: {
+  [typeDeclaration ::= TYPE IDENT (*) EQ typeExpression SEMIC , {EOF TYPE PROC }]
+}
+transition on EQ to state [9]
+
+-------------------
+lalr_state [9]: {
+  [typeExpression ::= (*) IDENT , {SEMIC }]
+  [typeDeclaration ::= TYPE IDENT EQ (*) typeExpression SEMIC , {EOF TYPE PROC }]
+  [typeExpression ::= (*) ARRAY LBRACK INTLIT RBRACK OF typeExpression , {SEMIC }]
+}
+transition on typeExpression to state [12]
+transition on ARRAY to state [11]
+transition on IDENT to state [10]
+
+-------------------
+lalr_state [10]: {
+  [typeExpression ::= IDENT (*) , {RPAREN COMMA SEMIC }]
+}
+
+-------------------
+lalr_state [11]: {
+  [typeExpression ::= ARRAY (*) LBRACK INTLIT RBRACK OF typeExpression , {RPAREN COMMA SEMIC }]
+}
+transition on LBRACK to state [14]
+
+-------------------
+lalr_state [12]: {
+  [typeDeclaration ::= TYPE IDENT EQ typeExpression (*) SEMIC , {EOF TYPE PROC }]
+}
+transition on SEMIC to state [13]
+
+-------------------
+lalr_state [13]: {
+  [typeDeclaration ::= TYPE IDENT EQ typeExpression SEMIC (*) , {EOF TYPE PROC }]
+}
+
+-------------------
+lalr_state [14]: {
+  [typeExpression ::= ARRAY LBRACK (*) INTLIT RBRACK OF typeExpression , {RPAREN COMMA SEMIC }]
+}
+transition on INTLIT to state [15]
+
+-------------------
+lalr_state [15]: {
+  [typeExpression ::= ARRAY LBRACK INTLIT (*) RBRACK OF typeExpression , {RPAREN COMMA SEMIC }]
+}
+transition on RBRACK to state [16]
+
+-------------------
+lalr_state [16]: {
+  [typeExpression ::= ARRAY LBRACK INTLIT RBRACK (*) OF typeExpression , {RPAREN COMMA SEMIC }]
+}
+transition on OF to state [17]
+
+-------------------
+lalr_state [17]: {
+  [typeExpression ::= (*) IDENT , {RPAREN COMMA SEMIC }]
+  [typeExpression ::= ARRAY LBRACK INTLIT RBRACK OF (*) typeExpression , {RPAREN COMMA SEMIC }]
+  [typeExpression ::= (*) ARRAY LBRACK INTLIT RBRACK OF typeExpression , {RPAREN COMMA SEMIC }]
+}
+transition on typeExpression to state [18]
+transition on ARRAY to state [11]
+transition on IDENT to state [10]
+
+-------------------
+lalr_state [18]: {
+  [typeExpression ::= ARRAY LBRACK INTLIT RBRACK OF typeExpression (*) , {RPAREN COMMA SEMIC }]
+}
+
+-------------------
+lalr_state [19]: {
+  [globalDeclarations ::= globalDeclaration globalDeclarations (*) , {EOF }]
+}
+
+-------------------
+lalr_state [20]: {
+  [procedureDeclaration ::= PROC IDENT (*) LPAREN parameter RPAREN LCURL variables statements RCURL , {EOF TYPE PROC }]
+}
+transition on LPAREN to state [21]
+
+-------------------
+lalr_state [21]: {
+  [var ::= (*) REF IDENT COLON typeExpression , {RPAREN COMMA }]
+  [parameter ::= (*) var subsequentVar , {RPAREN }]
+  [procedureDeclaration ::= PROC IDENT LPAREN (*) parameter RPAREN LCURL variables statements RCURL , {EOF TYPE PROC }]
+  [var ::= (*) IDENT COLON typeExpression , {RPAREN COMMA }]
+  [parameter ::= (*) , {RPAREN }]
+}
+transition on parameter to state [25]
+transition on IDENT to state [24]
+transition on REF to state [23]
+transition on var to state [22]
+
+-------------------
+lalr_state [22]: {
+  [parameter ::= var (*) subsequentVar , {RPAREN }]
+  [subsequentVar ::= (*) , {RPAREN }]
+  [subsequentVar ::= (*) COMMA parameter , {RPAREN }]
+}
+transition on subsequentVar to state [113]
+transition on COMMA to state [112]
+
+-------------------
+lalr_state [23]: {
+  [var ::= REF (*) IDENT COLON typeExpression , {RPAREN COMMA }]
+}
+transition on IDENT to state [109]
+
+-------------------
+lalr_state [24]: {
+  [var ::= IDENT (*) COLON typeExpression , {RPAREN COMMA }]
+}
+transition on COLON to state [107]
+
+-------------------
+lalr_state [25]: {
+  [procedureDeclaration ::= PROC IDENT LPAREN parameter (*) RPAREN LCURL variables statements RCURL , {EOF TYPE PROC }]
+}
+transition on RPAREN to state [26]
+
+-------------------
+lalr_state [26]: {
+  [procedureDeclaration ::= PROC IDENT LPAREN parameter RPAREN (*) LCURL variables statements RCURL , {EOF TYPE PROC }]
+}
+transition on LCURL to state [27]
+
+-------------------
+lalr_state [27]: {
+  [variables ::= (*) VAR IDENT COLON typeExpression SEMIC variables , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [procedureDeclaration ::= PROC IDENT LPAREN parameter RPAREN LCURL (*) variables statements RCURL , {EOF TYPE PROC }]
+  [variables ::= (*) , {LCURL RCURL SEMIC IF WHILE IDENT }]
+}
+transition on variables to state [29]
+transition on VAR to state [28]
+
+-------------------
+lalr_state [28]: {
+  [variables ::= VAR (*) IDENT COLON typeExpression SEMIC variables , {LCURL RCURL SEMIC IF WHILE IDENT }]
+}
+transition on IDENT to state [102]
+
+-------------------
+lalr_state [29]: {
+  [ifstatement ::= (*) IF LPAREN expressions RPAREN statement ELSE statement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [compoundstatement ::= (*) LCURL statements RCURL , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [statement ::= (*) assignstatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [statement ::= (*) emptystatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [assignstatement ::= (*) variable ASGN expressions SEMIC , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [variable ::= (*) variable arrayIndex , {LBRACK ASGN }]
+  [statements ::= (*) statement statements , {RCURL }]
+  [statement ::= (*) callstatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [whilestatement ::= (*) WHILE LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [statement ::= (*) ifstatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [procedureDeclaration ::= PROC IDENT LPAREN parameter RPAREN LCURL variables (*) statements RCURL , {EOF TYPE PROC }]
+  [ifstatement ::= (*) IF LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [emptystatement ::= (*) SEMIC , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [variable ::= (*) IDENT , {LBRACK ASGN }]
+  [statements ::= (*) , {RCURL }]
+  [statement ::= (*) compoundstatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [callstatement ::= (*) IDENT LPAREN callParameter RPAREN SEMIC , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [statement ::= (*) whilestatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+}
+transition on ifstatement to state [43]
+transition on compoundstatement to state [42]
+transition on statement to state [41]
+transition on whilestatement to state [40]
+transition on LCURL to state [39]
+transition on IF to state [38]
+transition on statements to state [37]
+transition on callstatement to state [36]
+transition on variable to state [35]
+transition on assignstatement to state [34]
+transition on SEMIC to state [33]
+transition on IDENT to state [32]
+transition on WHILE to state [31]
+transition on emptystatement to state [30]
+
+-------------------
+lalr_state [30]: {
+  [statement ::= emptystatement (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+
+-------------------
+lalr_state [31]: {
+  [whilestatement ::= WHILE (*) LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on LPAREN to state [98]
+
+-------------------
+lalr_state [32]: {
+  [variable ::= IDENT (*) , {LBRACK ASGN }]
+  [callstatement ::= IDENT (*) LPAREN callParameter RPAREN SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on LPAREN to state [90]
+
+-------------------
+lalr_state [33]: {
+  [emptystatement ::= SEMIC (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+
+-------------------
+lalr_state [34]: {
+  [statement ::= assignstatement (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+
+-------------------
+lalr_state [35]: {
+  [variable ::= variable (*) arrayIndex , {LBRACK ASGN }]
+  [assignstatement ::= variable (*) ASGN expressions SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [arrayIndex ::= (*) LBRACK expressions RBRACK , {LBRACK ASGN }]
+}
+transition on ASGN to state [87]
+transition on LBRACK to state [82]
+transition on arrayIndex to state [81]
+
+-------------------
+lalr_state [36]: {
+  [statement ::= callstatement (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+
+-------------------
+lalr_state [37]: {
+  [procedureDeclaration ::= PROC IDENT LPAREN parameter RPAREN LCURL variables statements (*) RCURL , {EOF TYPE PROC }]
+}
+transition on RCURL to state [86]
+
+-------------------
+lalr_state [38]: {
+  [ifstatement ::= IF (*) LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [ifstatement ::= IF (*) LPAREN expressions RPAREN statement ELSE statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on LPAREN to state [47]
+
+-------------------
+lalr_state [39]: {
+  [ifstatement ::= (*) IF LPAREN expressions RPAREN statement ELSE statement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [compoundstatement ::= LCURL (*) statements RCURL , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [compoundstatement ::= (*) LCURL statements RCURL , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [statement ::= (*) assignstatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [statement ::= (*) emptystatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [assignstatement ::= (*) variable ASGN expressions SEMIC , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [variable ::= (*) variable arrayIndex , {LBRACK ASGN }]
+  [statements ::= (*) statement statements , {RCURL }]
+  [statement ::= (*) callstatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [whilestatement ::= (*) WHILE LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [statement ::= (*) ifstatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [ifstatement ::= (*) IF LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [emptystatement ::= (*) SEMIC , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [variable ::= (*) IDENT , {LBRACK ASGN }]
+  [statements ::= (*) , {RCURL }]
+  [statement ::= (*) compoundstatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [callstatement ::= (*) IDENT LPAREN callParameter RPAREN SEMIC , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [statement ::= (*) whilestatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+}
+transition on ifstatement to state [43]
+transition on compoundstatement to state [42]
+transition on statement to state [41]
+transition on whilestatement to state [40]
+transition on LCURL to state [39]
+transition on statements to state [45]
+transition on IF to state [38]
+transition on callstatement to state [36]
+transition on variable to state [35]
+transition on assignstatement to state [34]
+transition on SEMIC to state [33]
+transition on IDENT to state [32]
+transition on WHILE to state [31]
+transition on emptystatement to state [30]
+
+-------------------
+lalr_state [40]: {
+  [statement ::= whilestatement (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+
+-------------------
+lalr_state [41]: {
+  [ifstatement ::= (*) IF LPAREN expressions RPAREN statement ELSE statement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [compoundstatement ::= (*) LCURL statements RCURL , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [statement ::= (*) assignstatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [statement ::= (*) emptystatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [assignstatement ::= (*) variable ASGN expressions SEMIC , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [variable ::= (*) variable arrayIndex , {LBRACK ASGN }]
+  [statements ::= statement (*) statements , {RCURL }]
+  [statements ::= (*) statement statements , {RCURL }]
+  [statement ::= (*) callstatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [whilestatement ::= (*) WHILE LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [statement ::= (*) ifstatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [ifstatement ::= (*) IF LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [emptystatement ::= (*) SEMIC , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [variable ::= (*) IDENT , {LBRACK ASGN }]
+  [statements ::= (*) , {RCURL }]
+  [statement ::= (*) compoundstatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [callstatement ::= (*) IDENT LPAREN callParameter RPAREN SEMIC , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [statement ::= (*) whilestatement , {LCURL RCURL SEMIC IF WHILE IDENT }]
+}
+transition on ifstatement to state [43]
+transition on compoundstatement to state [42]
+transition on statement to state [41]
+transition on whilestatement to state [40]
+transition on statements to state [44]
+transition on LCURL to state [39]
+transition on IF to state [38]
+transition on callstatement to state [36]
+transition on variable to state [35]
+transition on assignstatement to state [34]
+transition on SEMIC to state [33]
+transition on IDENT to state [32]
+transition on WHILE to state [31]
+transition on emptystatement to state [30]
+
+-------------------
+lalr_state [42]: {
+  [statement ::= compoundstatement (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+
+-------------------
+lalr_state [43]: {
+  [statement ::= ifstatement (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+
+-------------------
+lalr_state [44]: {
+  [statements ::= statement statements (*) , {RCURL }]
+}
+
+-------------------
+lalr_state [45]: {
+  [compoundstatement ::= LCURL statements (*) RCURL , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on RCURL to state [46]
+
+-------------------
+lalr_state [46]: {
+  [compoundstatement ::= LCURL statements RCURL (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+
+-------------------
+lalr_state [47]: {
+  [exFinal ::= (*) intLiteral , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [ifstatement ::= IF LPAREN (*) expressions RPAREN statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [exUnaere ::= (*) exFinal , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exLine ::= (*) exPoint , {RPAREN LT LE GT GE NE EQ PLUS MINUS }]
+  [intLiteral ::= (*) variable , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [expressions ::= (*) exLine compOp exLine , {RPAREN }]
+  [exFinal ::= (*) LPAREN expressions RPAREN , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exPoint ::= (*) exUnaere , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exLine ::= (*) exLine lineOp exPoint , {RPAREN LT LE GT GE NE EQ PLUS MINUS }]
+  [variable ::= (*) IDENT , {LBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [ifstatement ::= IF LPAREN (*) expressions RPAREN statement ELSE statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [exUnaere ::= (*) MINUS exFinal , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exPoint ::= (*) exPoint pointOp exUnaere , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [intLiteral ::= (*) INTLIT , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [expressions ::= (*) exLine , {RPAREN }]
+  [variable ::= (*) variable arrayIndex , {LBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+}
+transition on exUnaere to state [58]
+transition on exLine to state [57]
+transition on LPAREN to state [56]
+transition on exFinal to state [55]
+transition on expressions to state [54]
+transition on variable to state [53]
+transition on exPoint to state [52]
+transition on INTLIT to state [51]
+transition on intLiteral to state [50]
+transition on IDENT to state [49]
+transition on MINUS to state [48]
+
+-------------------
+lalr_state [48]: {
+  [variable ::= (*) IDENT , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exFinal ::= (*) LPAREN expressions RPAREN , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [intLiteral ::= (*) INTLIT , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [variable ::= (*) variable arrayIndex , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exUnaere ::= MINUS (*) exFinal , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [intLiteral ::= (*) variable , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exFinal ::= (*) intLiteral , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+transition on LPAREN to state [56]
+transition on IDENT to state [49]
+transition on exFinal to state [85]
+transition on variable to state [53]
+transition on INTLIT to state [51]
+transition on intLiteral to state [50]
+
+-------------------
+lalr_state [49]: {
+  [variable ::= IDENT (*) , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+
+-------------------
+lalr_state [50]: {
+  [exFinal ::= intLiteral (*) , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+
+-------------------
+lalr_state [51]: {
+  [intLiteral ::= INTLIT (*) , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+
+-------------------
+lalr_state [52]: {
+  [exLine ::= exPoint (*) , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS COMMA SEMIC }]
+  [pointOp ::= (*) SLASH , {LPAREN MINUS IDENT INTLIT }]
+  [pointOp ::= (*) STAR , {LPAREN MINUS IDENT INTLIT }]
+  [exPoint ::= exPoint (*) pointOp exUnaere , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+transition on SLASH to state [72]
+transition on STAR to state [71]
+transition on pointOp to state [70]
+
+-------------------
+lalr_state [53]: {
+  [variable ::= variable (*) arrayIndex , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [intLiteral ::= variable (*) , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [arrayIndex ::= (*) LBRACK expressions RBRACK , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+transition on LBRACK to state [82]
+transition on arrayIndex to state [81]
+
+-------------------
+lalr_state [54]: {
+  [ifstatement ::= IF LPAREN expressions (*) RPAREN statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [ifstatement ::= IF LPAREN expressions (*) RPAREN statement ELSE statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on RPAREN to state [77]
+
+-------------------
+lalr_state [55]: {
+  [exUnaere ::= exFinal (*) , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+
+-------------------
+lalr_state [56]: {
+  [exFinal ::= (*) intLiteral , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exUnaere ::= (*) exFinal , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exLine ::= (*) exPoint , {RPAREN LT LE GT GE NE EQ PLUS MINUS }]
+  [intLiteral ::= (*) variable , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [expressions ::= (*) exLine compOp exLine , {RPAREN }]
+  [exFinal ::= LPAREN (*) expressions RPAREN , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exFinal ::= (*) LPAREN expressions RPAREN , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exPoint ::= (*) exUnaere , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exLine ::= (*) exLine lineOp exPoint , {RPAREN LT LE GT GE NE EQ PLUS MINUS }]
+  [variable ::= (*) IDENT , {LBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exUnaere ::= (*) MINUS exFinal , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exPoint ::= (*) exPoint pointOp exUnaere , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [intLiteral ::= (*) INTLIT , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [expressions ::= (*) exLine , {RPAREN }]
+  [variable ::= (*) variable arrayIndex , {LBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+}
+transition on exUnaere to state [58]
+transition on exLine to state [57]
+transition on LPAREN to state [56]
+transition on exFinal to state [55]
+transition on expressions to state [75]
+transition on variable to state [53]
+transition on exPoint to state [52]
+transition on INTLIT to state [51]
+transition on intLiteral to state [50]
+transition on IDENT to state [49]
+transition on MINUS to state [48]
+
+-------------------
+lalr_state [57]: {
+  [compOp ::= (*) EQ , {LPAREN MINUS IDENT INTLIT }]
+  [compOp ::= (*) GT , {LPAREN MINUS IDENT INTLIT }]
+  [expressions ::= exLine (*) compOp exLine , {RBRACK RPAREN COMMA SEMIC }]
+  [lineOp ::= (*) MINUS , {LPAREN MINUS IDENT INTLIT }]
+  [compOp ::= (*) NE , {LPAREN MINUS IDENT INTLIT }]
+  [compOp ::= (*) LE , {LPAREN MINUS IDENT INTLIT }]
+  [exLine ::= exLine (*) lineOp exPoint , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS COMMA SEMIC }]
+  [lineOp ::= (*) PLUS , {LPAREN MINUS IDENT INTLIT }]
+  [compOp ::= (*) GE , {LPAREN MINUS IDENT INTLIT }]
+  [compOp ::= (*) LT , {LPAREN MINUS IDENT INTLIT }]
+  [expressions ::= exLine (*) , {RBRACK RPAREN COMMA SEMIC }]
+}
+transition on lineOp to state [68]
+transition on LT to state [67]
+transition on NE to state [66]
+transition on GT to state [65]
+transition on LE to state [64]
+transition on EQ to state [63]
+transition on PLUS to state [62]
+transition on compOp to state [61]
+transition on GE to state [60]
+transition on MINUS to state [59]
+
+-------------------
+lalr_state [58]: {
+  [exPoint ::= exUnaere (*) , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+
+-------------------
+lalr_state [59]: {
+  [lineOp ::= MINUS (*) , {LPAREN MINUS IDENT INTLIT }]
+}
+
+-------------------
+lalr_state [60]: {
+  [compOp ::= GE (*) , {LPAREN MINUS IDENT INTLIT }]
+}
+
+-------------------
+lalr_state [61]: {
+  [exFinal ::= (*) intLiteral , {RBRACK RPAREN PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [expressions ::= exLine compOp (*) exLine , {RBRACK RPAREN COMMA SEMIC }]
+  [exUnaere ::= (*) exFinal , {RBRACK RPAREN PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exLine ::= (*) exPoint , {RBRACK RPAREN PLUS MINUS COMMA SEMIC }]
+  [intLiteral ::= (*) variable , {RBRACK RPAREN PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exFinal ::= (*) LPAREN expressions RPAREN , {RBRACK RPAREN PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exPoint ::= (*) exUnaere , {RBRACK RPAREN PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exLine ::= (*) exLine lineOp exPoint , {RBRACK RPAREN PLUS MINUS COMMA SEMIC }]
+  [variable ::= (*) IDENT , {LBRACK RBRACK RPAREN PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exUnaere ::= (*) MINUS exFinal , {RBRACK RPAREN PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exPoint ::= (*) exPoint pointOp exUnaere , {RBRACK RPAREN PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [intLiteral ::= (*) INTLIT , {RBRACK RPAREN PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [variable ::= (*) variable arrayIndex , {LBRACK RBRACK RPAREN PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+transition on exUnaere to state [58]
+transition on exLine to state [74]
+transition on LPAREN to state [56]
+transition on exFinal to state [55]
+transition on variable to state [53]
+transition on exPoint to state [52]
+transition on INTLIT to state [51]
+transition on intLiteral to state [50]
+transition on IDENT to state [49]
+transition on MINUS to state [48]
+
+-------------------
+lalr_state [62]: {
+  [lineOp ::= PLUS (*) , {LPAREN MINUS IDENT INTLIT }]
+}
+
+-------------------
+lalr_state [63]: {
+  [compOp ::= EQ (*) , {LPAREN MINUS IDENT INTLIT }]
+}
+
+-------------------
+lalr_state [64]: {
+  [compOp ::= LE (*) , {LPAREN MINUS IDENT INTLIT }]
+}
+
+-------------------
+lalr_state [65]: {
+  [compOp ::= GT (*) , {LPAREN MINUS IDENT INTLIT }]
+}
+
+-------------------
+lalr_state [66]: {
+  [compOp ::= NE (*) , {LPAREN MINUS IDENT INTLIT }]
+}
+
+-------------------
+lalr_state [67]: {
+  [compOp ::= LT (*) , {LPAREN MINUS IDENT INTLIT }]
+}
+
+-------------------
+lalr_state [68]: {
+  [exFinal ::= (*) intLiteral , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exUnaere ::= (*) exFinal , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [intLiteral ::= (*) variable , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exLine ::= exLine lineOp (*) exPoint , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS COMMA SEMIC }]
+  [exFinal ::= (*) LPAREN expressions RPAREN , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exPoint ::= (*) exUnaere , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [variable ::= (*) IDENT , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exUnaere ::= (*) MINUS exFinal , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exPoint ::= (*) exPoint pointOp exUnaere , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [intLiteral ::= (*) INTLIT , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [variable ::= (*) variable arrayIndex , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+transition on exUnaere to state [58]
+transition on LPAREN to state [56]
+transition on exFinal to state [55]
+transition on variable to state [53]
+transition on exPoint to state [69]
+transition on INTLIT to state [51]
+transition on intLiteral to state [50]
+transition on IDENT to state [49]
+transition on MINUS to state [48]
+
+-------------------
+lalr_state [69]: {
+  [exLine ::= exLine lineOp exPoint (*) , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS COMMA SEMIC }]
+  [pointOp ::= (*) SLASH , {LPAREN MINUS IDENT INTLIT }]
+  [pointOp ::= (*) STAR , {LPAREN MINUS IDENT INTLIT }]
+  [exPoint ::= exPoint (*) pointOp exUnaere , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+transition on SLASH to state [72]
+transition on STAR to state [71]
+transition on pointOp to state [70]
+
+-------------------
+lalr_state [70]: {
+  [exFinal ::= (*) intLiteral , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exUnaere ::= (*) exFinal , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [intLiteral ::= (*) variable , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exFinal ::= (*) LPAREN expressions RPAREN , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [variable ::= (*) IDENT , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exPoint ::= exPoint pointOp (*) exUnaere , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [exUnaere ::= (*) MINUS exFinal , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [intLiteral ::= (*) INTLIT , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+  [variable ::= (*) variable arrayIndex , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+transition on LPAREN to state [56]
+transition on IDENT to state [49]
+transition on exFinal to state [55]
+transition on MINUS to state [48]
+transition on variable to state [53]
+transition on intLiteral to state [50]
+transition on INTLIT to state [51]
+transition on exUnaere to state [73]
+
+-------------------
+lalr_state [71]: {
+  [pointOp ::= STAR (*) , {LPAREN MINUS IDENT INTLIT }]
+}
+
+-------------------
+lalr_state [72]: {
+  [pointOp ::= SLASH (*) , {LPAREN MINUS IDENT INTLIT }]
+}
+
+-------------------
+lalr_state [73]: {
+  [exPoint ::= exPoint pointOp exUnaere (*) , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+
+-------------------
+lalr_state [74]: {
+  [lineOp ::= (*) MINUS , {LPAREN MINUS IDENT INTLIT }]
+  [lineOp ::= (*) PLUS , {LPAREN MINUS IDENT INTLIT }]
+  [exLine ::= exLine (*) lineOp exPoint , {RBRACK RPAREN PLUS MINUS COMMA SEMIC }]
+  [expressions ::= exLine compOp exLine (*) , {RBRACK RPAREN COMMA SEMIC }]
+}
+transition on MINUS to state [59]
+transition on PLUS to state [62]
+transition on lineOp to state [68]
+
+-------------------
+lalr_state [75]: {
+  [exFinal ::= LPAREN expressions (*) RPAREN , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+transition on RPAREN to state [76]
+
+-------------------
+lalr_state [76]: {
+  [exFinal ::= LPAREN expressions RPAREN (*) , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+
+-------------------
+lalr_state [77]: {
+  [ifstatement ::= IF LPAREN expressions RPAREN (*) statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [compoundstatement ::= (*) LCURL statements RCURL , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [callstatement ::= (*) IDENT LPAREN callParameter RPAREN SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [ifstatement ::= (*) IF LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [statement ::= (*) callstatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [statement ::= (*) assignstatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [emptystatement ::= (*) SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [whilestatement ::= (*) WHILE LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [statement ::= (*) emptystatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [variable ::= (*) IDENT , {LBRACK ASGN }]
+  [statement ::= (*) whilestatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [ifstatement ::= IF LPAREN expressions RPAREN (*) statement ELSE statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [assignstatement ::= (*) variable ASGN expressions SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [ifstatement ::= (*) IF LPAREN expressions RPAREN statement ELSE statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [statement ::= (*) compoundstatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [variable ::= (*) variable arrayIndex , {LBRACK ASGN }]
+  [statement ::= (*) ifstatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on ifstatement to state [43]
+transition on compoundstatement to state [42]
+transition on statement to state [78]
+transition on whilestatement to state [40]
+transition on LCURL to state [39]
+transition on IF to state [38]
+transition on callstatement to state [36]
+transition on variable to state [35]
+transition on assignstatement to state [34]
+transition on SEMIC to state [33]
+transition on IDENT to state [32]
+transition on WHILE to state [31]
+transition on emptystatement to state [30]
+
+-------------------
+lalr_state [78]: {
+  [ifstatement ::= IF LPAREN expressions RPAREN statement (*) ELSE statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [ifstatement ::= IF LPAREN expressions RPAREN statement (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on ELSE to state [79]
+
+-------------------
+lalr_state [79]: {
+  [compoundstatement ::= (*) LCURL statements RCURL , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [callstatement ::= (*) IDENT LPAREN callParameter RPAREN SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [ifstatement ::= (*) IF LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [statement ::= (*) callstatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [statement ::= (*) assignstatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [emptystatement ::= (*) SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [whilestatement ::= (*) WHILE LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [statement ::= (*) emptystatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [variable ::= (*) IDENT , {LBRACK ASGN }]
+  [statement ::= (*) whilestatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [ifstatement ::= IF LPAREN expressions RPAREN statement ELSE (*) statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [assignstatement ::= (*) variable ASGN expressions SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [ifstatement ::= (*) IF LPAREN expressions RPAREN statement ELSE statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [statement ::= (*) compoundstatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [variable ::= (*) variable arrayIndex , {LBRACK ASGN }]
+  [statement ::= (*) ifstatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on ifstatement to state [43]
+transition on compoundstatement to state [42]
+transition on statement to state [80]
+transition on whilestatement to state [40]
+transition on LCURL to state [39]
+transition on IF to state [38]
+transition on callstatement to state [36]
+transition on variable to state [35]
+transition on assignstatement to state [34]
+transition on SEMIC to state [33]
+transition on IDENT to state [32]
+transition on WHILE to state [31]
+transition on emptystatement to state [30]
+
+-------------------
+lalr_state [80]: {
+  [ifstatement ::= IF LPAREN expressions RPAREN statement ELSE statement (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+
+-------------------
+lalr_state [81]: {
+  [variable ::= variable arrayIndex (*) , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH ASGN COMMA SEMIC }]
+}
+
+-------------------
+lalr_state [82]: {
+  [exFinal ::= (*) intLiteral , {RBRACK LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exUnaere ::= (*) exFinal , {RBRACK LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exLine ::= (*) exPoint , {RBRACK LT LE GT GE NE EQ PLUS MINUS }]
+  [intLiteral ::= (*) variable , {RBRACK LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [arrayIndex ::= LBRACK (*) expressions RBRACK , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH ASGN COMMA SEMIC }]
+  [expressions ::= (*) exLine compOp exLine , {RBRACK }]
+  [exFinal ::= (*) LPAREN expressions RPAREN , {RBRACK LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exPoint ::= (*) exUnaere , {RBRACK LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exLine ::= (*) exLine lineOp exPoint , {RBRACK LT LE GT GE NE EQ PLUS MINUS }]
+  [variable ::= (*) IDENT , {LBRACK RBRACK LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exUnaere ::= (*) MINUS exFinal , {RBRACK LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exPoint ::= (*) exPoint pointOp exUnaere , {RBRACK LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [intLiteral ::= (*) INTLIT , {RBRACK LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [expressions ::= (*) exLine , {RBRACK }]
+  [variable ::= (*) variable arrayIndex , {LBRACK RBRACK LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+}
+transition on exUnaere to state [58]
+transition on exLine to state [57]
+transition on LPAREN to state [56]
+transition on exFinal to state [55]
+transition on expressions to state [83]
+transition on variable to state [53]
+transition on exPoint to state [52]
+transition on INTLIT to state [51]
+transition on intLiteral to state [50]
+transition on IDENT to state [49]
+transition on MINUS to state [48]
+
+-------------------
+lalr_state [83]: {
+  [arrayIndex ::= LBRACK expressions (*) RBRACK , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH ASGN COMMA SEMIC }]
+}
+transition on RBRACK to state [84]
+
+-------------------
+lalr_state [84]: {
+  [arrayIndex ::= LBRACK expressions RBRACK (*) , {LBRACK RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH ASGN COMMA SEMIC }]
+}
+
+-------------------
+lalr_state [85]: {
+  [exUnaere ::= MINUS exFinal (*) , {RBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA SEMIC }]
+}
+
+-------------------
+lalr_state [86]: {
+  [procedureDeclaration ::= PROC IDENT LPAREN parameter RPAREN LCURL variables statements RCURL (*) , {EOF TYPE PROC }]
+}
+
+-------------------
+lalr_state [87]: {
+  [exFinal ::= (*) intLiteral , {LT LE GT GE NE EQ PLUS MINUS STAR SLASH SEMIC }]
+  [exUnaere ::= (*) exFinal , {LT LE GT GE NE EQ PLUS MINUS STAR SLASH SEMIC }]
+  [exLine ::= (*) exPoint , {LT LE GT GE NE EQ PLUS MINUS SEMIC }]
+  [intLiteral ::= (*) variable , {LT LE GT GE NE EQ PLUS MINUS STAR SLASH SEMIC }]
+  [expressions ::= (*) exLine compOp exLine , {SEMIC }]
+  [exFinal ::= (*) LPAREN expressions RPAREN , {LT LE GT GE NE EQ PLUS MINUS STAR SLASH SEMIC }]
+  [exPoint ::= (*) exUnaere , {LT LE GT GE NE EQ PLUS MINUS STAR SLASH SEMIC }]
+  [exLine ::= (*) exLine lineOp exPoint , {LT LE GT GE NE EQ PLUS MINUS SEMIC }]
+  [variable ::= (*) IDENT , {LBRACK LT LE GT GE NE EQ PLUS MINUS STAR SLASH SEMIC }]
+  [assignstatement ::= variable ASGN (*) expressions SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [exUnaere ::= (*) MINUS exFinal , {LT LE GT GE NE EQ PLUS MINUS STAR SLASH SEMIC }]
+  [exPoint ::= (*) exPoint pointOp exUnaere , {LT LE GT GE NE EQ PLUS MINUS STAR SLASH SEMIC }]
+  [intLiteral ::= (*) INTLIT , {LT LE GT GE NE EQ PLUS MINUS STAR SLASH SEMIC }]
+  [expressions ::= (*) exLine , {SEMIC }]
+  [variable ::= (*) variable arrayIndex , {LBRACK LT LE GT GE NE EQ PLUS MINUS STAR SLASH SEMIC }]
+}
+transition on exUnaere to state [58]
+transition on exLine to state [57]
+transition on LPAREN to state [56]
+transition on exFinal to state [55]
+transition on expressions to state [88]
+transition on variable to state [53]
+transition on exPoint to state [52]
+transition on INTLIT to state [51]
+transition on intLiteral to state [50]
+transition on IDENT to state [49]
+transition on MINUS to state [48]
+
+-------------------
+lalr_state [88]: {
+  [assignstatement ::= variable ASGN expressions (*) SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on SEMIC to state [89]
+
+-------------------
+lalr_state [89]: {
+  [assignstatement ::= variable ASGN expressions SEMIC (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+
+-------------------
+lalr_state [90]: {
+  [callstatement ::= IDENT LPAREN (*) callParameter RPAREN SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [exFinal ::= (*) intLiteral , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [exUnaere ::= (*) exFinal , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [exLine ::= (*) exPoint , {RPAREN LT LE GT GE NE EQ PLUS MINUS COMMA }]
+  [intLiteral ::= (*) variable , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [expressions ::= (*) exLine compOp exLine , {RPAREN COMMA }]
+  [callParameter ::= (*) , {RPAREN }]
+  [exFinal ::= (*) LPAREN expressions RPAREN , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [exPoint ::= (*) exUnaere , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [exLine ::= (*) exLine lineOp exPoint , {RPAREN LT LE GT GE NE EQ PLUS MINUS COMMA }]
+  [variable ::= (*) IDENT , {LBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [callParameter ::= (*) expressions callParameters , {RPAREN }]
+  [exUnaere ::= (*) MINUS exFinal , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [exPoint ::= (*) exPoint pointOp exUnaere , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [intLiteral ::= (*) INTLIT , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [expressions ::= (*) exLine , {RPAREN COMMA }]
+  [variable ::= (*) variable arrayIndex , {LBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+}
+transition on exUnaere to state [58]
+transition on exLine to state [57]
+transition on LPAREN to state [56]
+transition on callParameter to state [92]
+transition on exFinal to state [55]
+transition on expressions to state [91]
+transition on variable to state [53]
+transition on exPoint to state [52]
+transition on INTLIT to state [51]
+transition on intLiteral to state [50]
+transition on IDENT to state [49]
+transition on MINUS to state [48]
+
+-------------------
+lalr_state [91]: {
+  [callParameters ::= (*) COMMA callParameter , {RPAREN }]
+  [callParameters ::= (*) , {RPAREN }]
+  [callParameter ::= expressions (*) callParameters , {RPAREN }]
+}
+transition on callParameters to state [96]
+transition on COMMA to state [95]
+
+-------------------
+lalr_state [92]: {
+  [callstatement ::= IDENT LPAREN callParameter (*) RPAREN SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on RPAREN to state [93]
+
+-------------------
+lalr_state [93]: {
+  [callstatement ::= IDENT LPAREN callParameter RPAREN (*) SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on SEMIC to state [94]
+
+-------------------
+lalr_state [94]: {
+  [callstatement ::= IDENT LPAREN callParameter RPAREN SEMIC (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+
+-------------------
+lalr_state [95]: {
+  [callParameters ::= COMMA (*) callParameter , {RPAREN }]
+  [exFinal ::= (*) intLiteral , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [exUnaere ::= (*) exFinal , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [exLine ::= (*) exPoint , {RPAREN LT LE GT GE NE EQ PLUS MINUS COMMA }]
+  [intLiteral ::= (*) variable , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [expressions ::= (*) exLine compOp exLine , {RPAREN COMMA }]
+  [callParameter ::= (*) , {RPAREN }]
+  [exFinal ::= (*) LPAREN expressions RPAREN , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [exPoint ::= (*) exUnaere , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [exLine ::= (*) exLine lineOp exPoint , {RPAREN LT LE GT GE NE EQ PLUS MINUS COMMA }]
+  [variable ::= (*) IDENT , {LBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [callParameter ::= (*) expressions callParameters , {RPAREN }]
+  [exUnaere ::= (*) MINUS exFinal , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [exPoint ::= (*) exPoint pointOp exUnaere , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [intLiteral ::= (*) INTLIT , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+  [expressions ::= (*) exLine , {RPAREN COMMA }]
+  [variable ::= (*) variable arrayIndex , {LBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH COMMA }]
+}
+transition on exUnaere to state [58]
+transition on exLine to state [57]
+transition on LPAREN to state [56]
+transition on callParameter to state [97]
+transition on exFinal to state [55]
+transition on expressions to state [91]
+transition on variable to state [53]
+transition on exPoint to state [52]
+transition on INTLIT to state [51]
+transition on intLiteral to state [50]
+transition on IDENT to state [49]
+transition on MINUS to state [48]
+
+-------------------
+lalr_state [96]: {
+  [callParameter ::= expressions callParameters (*) , {RPAREN }]
+}
+
+-------------------
+lalr_state [97]: {
+  [callParameters ::= COMMA callParameter (*) , {RPAREN }]
+}
+
+-------------------
+lalr_state [98]: {
+  [exFinal ::= (*) intLiteral , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exUnaere ::= (*) exFinal , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exLine ::= (*) exPoint , {RPAREN LT LE GT GE NE EQ PLUS MINUS }]
+  [intLiteral ::= (*) variable , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [expressions ::= (*) exLine compOp exLine , {RPAREN }]
+  [whilestatement ::= WHILE LPAREN (*) expressions RPAREN statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [exFinal ::= (*) LPAREN expressions RPAREN , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exPoint ::= (*) exUnaere , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exLine ::= (*) exLine lineOp exPoint , {RPAREN LT LE GT GE NE EQ PLUS MINUS }]
+  [variable ::= (*) IDENT , {LBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exUnaere ::= (*) MINUS exFinal , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [exPoint ::= (*) exPoint pointOp exUnaere , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [intLiteral ::= (*) INTLIT , {RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+  [expressions ::= (*) exLine , {RPAREN }]
+  [variable ::= (*) variable arrayIndex , {LBRACK RPAREN LT LE GT GE NE EQ PLUS MINUS STAR SLASH }]
+}
+transition on exUnaere to state [58]
+transition on exLine to state [57]
+transition on LPAREN to state [56]
+transition on exFinal to state [55]
+transition on expressions to state [99]
+transition on variable to state [53]
+transition on exPoint to state [52]
+transition on INTLIT to state [51]
+transition on intLiteral to state [50]
+transition on IDENT to state [49]
+transition on MINUS to state [48]
+
+-------------------
+lalr_state [99]: {
+  [whilestatement ::= WHILE LPAREN expressions (*) RPAREN statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on RPAREN to state [100]
+
+-------------------
+lalr_state [100]: {
+  [compoundstatement ::= (*) LCURL statements RCURL , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [callstatement ::= (*) IDENT LPAREN callParameter RPAREN SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [ifstatement ::= (*) IF LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [statement ::= (*) callstatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [statement ::= (*) assignstatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [whilestatement ::= WHILE LPAREN expressions RPAREN (*) statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [emptystatement ::= (*) SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [whilestatement ::= (*) WHILE LPAREN expressions RPAREN statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [statement ::= (*) emptystatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [variable ::= (*) IDENT , {LBRACK ASGN }]
+  [statement ::= (*) whilestatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [assignstatement ::= (*) variable ASGN expressions SEMIC , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [ifstatement ::= (*) IF LPAREN expressions RPAREN statement ELSE statement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [statement ::= (*) compoundstatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+  [variable ::= (*) variable arrayIndex , {LBRACK ASGN }]
+  [statement ::= (*) ifstatement , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+transition on ifstatement to state [43]
+transition on compoundstatement to state [42]
+transition on statement to state [101]
+transition on whilestatement to state [40]
+transition on LCURL to state [39]
+transition on IF to state [38]
+transition on callstatement to state [36]
+transition on variable to state [35]
+transition on assignstatement to state [34]
+transition on SEMIC to state [33]
+transition on IDENT to state [32]
+transition on WHILE to state [31]
+transition on emptystatement to state [30]
+
+-------------------
+lalr_state [101]: {
+  [whilestatement ::= WHILE LPAREN expressions RPAREN statement (*) , {LCURL RCURL SEMIC IF ELSE WHILE IDENT }]
+}
+
+-------------------
+lalr_state [102]: {
+  [variables ::= VAR IDENT (*) COLON typeExpression SEMIC variables , {LCURL RCURL SEMIC IF WHILE IDENT }]
+}
+transition on COLON to state [103]
+
+-------------------
+lalr_state [103]: {
+  [typeExpression ::= (*) IDENT , {SEMIC }]
+  [variables ::= VAR IDENT COLON (*) typeExpression SEMIC variables , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [typeExpression ::= (*) ARRAY LBRACK INTLIT RBRACK OF typeExpression , {SEMIC }]
+}
+transition on typeExpression to state [104]
+transition on ARRAY to state [11]
+transition on IDENT to state [10]
+
+-------------------
+lalr_state [104]: {
+  [variables ::= VAR IDENT COLON typeExpression (*) SEMIC variables , {LCURL RCURL SEMIC IF WHILE IDENT }]
+}
+transition on SEMIC to state [105]
+
+-------------------
+lalr_state [105]: {
+  [variables ::= (*) VAR IDENT COLON typeExpression SEMIC variables , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [variables ::= VAR IDENT COLON typeExpression SEMIC (*) variables , {LCURL RCURL SEMIC IF WHILE IDENT }]
+  [variables ::= (*) , {LCURL RCURL SEMIC IF WHILE IDENT }]
+}
+transition on variables to state [106]
+transition on VAR to state [28]
+
+-------------------
+lalr_state [106]: {
+  [variables ::= VAR IDENT COLON typeExpression SEMIC variables (*) , {LCURL RCURL SEMIC IF WHILE IDENT }]
+}
+[INFO]   generated /home/solution/java/target/generated-sources/cup/de/thm/mni/compilerbau/phases/_02_03_parser/Parser.java
+[INFO]   generated /home/solution/java/target/generated-sources/cup/de/thm/mni/compilerbau/phases/_02_03_parser/Sym.java
+
+-------------------
+lalr_state [107]: {
+  [typeExpression ::= (*) IDENT , {RPAREN COMMA }]
+  [var ::= IDENT COLON (*) typeExpression , {RPAREN COMMA }]
+  [typeExpression ::= (*) ARRAY LBRACK INTLIT RBRACK OF typeExpression , {RPAREN COMMA }]
+}
+transition on typeExpression to state [108]
+transition on ARRAY to state [11]
+transition on IDENT to state [10]
+
+-------------------
+lalr_state [108]: {
+  [var ::= IDENT COLON typeExpression (*) , {RPAREN COMMA }]
+}
+
+-------------------
+lalr_state [109]: {
+  [var ::= REF IDENT (*) COLON typeExpression , {RPAREN COMMA }]
+}
+transition on COLON to state [110]
+
+-------------------
+lalr_state [110]: {
+  [typeExpression ::= (*) IDENT , {RPAREN COMMA }]
+  [var ::= REF IDENT COLON (*) typeExpression , {RPAREN COMMA }]
+  [typeExpression ::= (*) ARRAY LBRACK INTLIT RBRACK OF typeExpression , {RPAREN COMMA }]
+}
+transition on typeExpression to state [111]
+transition on ARRAY to state [11]
+transition on IDENT to state [10]
+
+-------------------
+lalr_state [111]: {
+  [var ::= REF IDENT COLON typeExpression (*) , {RPAREN COMMA }]
+}
+
+-------------------
+lalr_state [112]: {
+  [var ::= (*) REF IDENT COLON typeExpression , {RPAREN COMMA }]
+  [parameter ::= (*) var subsequentVar , {RPAREN }]
+  [var ::= (*) IDENT COLON typeExpression , {RPAREN COMMA }]
+  [subsequentVar ::= COMMA (*) parameter , {RPAREN }]
+  [parameter ::= (*) , {RPAREN }]
+}
+transition on parameter to state [114]
+transition on IDENT to state [24]
+transition on REF to state [23]
+transition on var to state [22]
+
+-------------------
+lalr_state [113]: {
+  [parameter ::= var subsequentVar (*) , {RPAREN }]
+}
+
+-------------------
+lalr_state [114]: {
+  [subsequentVar ::= COMMA parameter (*) , {RPAREN }]
+}
+
+-------------------
+lalr_state [115]: {
+  [$START ::= program EOF (*) , {EOF }]
+}
+
+-------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ spl ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/solution/java/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.0:compile (default-compile) @ spl ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 57 source files to /home/solution/java/target/classes
+[INFO] /home/solution/java/target/generated-sources/cup/de/thm/mni/compilerbau/phases/_02_03_parser/Parser.java: /home/solution/java/target/generated-sources/cup/de/thm/mni/compilerbau/phases/_02_03_parser/Parser.java uses unchecked or unsafe operations.
+[INFO] /home/solution/java/target/generated-sources/cup/de/thm/mni/compilerbau/phases/_02_03_parser/Parser.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ spl ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/solution/java/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.0:testCompile (default-testCompile) @ spl ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ spl ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ spl ---
+[INFO] Building jar: /home/solution/java/target/spl.jar
+[INFO] 
+[INFO] --- maven-shade-plugin:3.1.0:shade (default) @ spl ---
+[INFO] Including com.github.vbmacher:java-cup-runtime:jar:11b-20160615 in the shaded jar.
+[INFO] Replacing original artifact with shaded artifact.
+[INFO] Replacing /home/solution/java/target/spl.jar with /home/solution/java/target/spl-0.1-shaded.jar
+[INFO] Dependency-reduced POM written at: /home/solution/java/dependency-reduced-pom.xml
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.148 s
+[INFO] Finished at: 2021-12-08T08:21:21Z
+[INFO] ------------------------------------------------------------------------
+[2021-12-08 09:21:21.477443] Beginning evaluation.
+[2021-12-08 09:21:21.477705] Evaluating acker.spl with the submitted solution.
+[2021-12-08 09:21:22.374995] Test subject results match (Success).
+[2021-12-08 09:21:22.399680] Outputs match.
+[2021-12-08 09:21:22.399953] Test passed.
+[2021-12-08 09:21:22.400124] Running Score: 1/1
+
+[2021-12-08 09:21:22.400375] Evaluating arrayasgn.spl with the submitted solution.
+[2021-12-08 09:21:22.885871] Test subject results match (Success).
+[2021-12-08 09:21:22.895404] Outputs match.
+[2021-12-08 09:21:22.895563] Test passed.
+[2021-12-08 09:21:22.895588] Running Score: 2/2
+
+[2021-12-08 09:21:22.895622] Evaluating arrayparm.spl with the submitted solution.
+[2021-12-08 09:21:23.413877] Test subject results match (Success).
+[2021-12-08 09:21:23.423876] Outputs match.
+[2021-12-08 09:21:23.423950] Test passed.
+[2021-12-08 09:21:23.423970] Running Score: 3/3
+
+[2021-12-08 09:21:23.424004] Evaluating assignment_without_semicolon.spl with the submitted solution.
+[2021-12-08 09:21:23.778882] Test subject results match (Compiler Failure).
+[2021-12-08 09:21:23.779996] Exit code matches the expected exit code (100).
+[2021-12-08 09:21:23.780056] Test passed.
+[2021-12-08 09:21:23.780076] Running Score: 4/4
+
+[2021-12-08 09:21:23.780104] Evaluating bigtest.spl with the submitted solution.
+[2021-12-08 09:21:25.607431] Test subject results match (Success).
+[2021-12-08 09:21:25.616129] Outputs match.
+[2021-12-08 09:21:25.616212] Test passed.
+[2021-12-08 09:21:25.616230] Running Score: 5/5
+
+[2021-12-08 09:21:25.616261] Evaluating bits.spl with the submitted solution.
+[2021-12-08 09:21:26.372947] Test subject results match (Success).
+[2021-12-08 09:21:26.382666] Outputs match.
+[2021-12-08 09:21:26.382746] Test passed.
+[2021-12-08 09:21:26.382763] Running Score: 6/6
+
+[2021-12-08 09:21:26.382793] Evaluating call_without_semicolon.spl with the submitted solution.
+[2021-12-08 09:21:26.736531] Test subject results match (Compiler Failure).
+[2021-12-08 09:21:26.736575] Exit code matches the expected exit code (100).
+[2021-12-08 09:21:26.736607] Test passed.
+[2021-12-08 09:21:26.736623] Running Score: 7/7
+
+[2021-12-08 09:21:26.736650] Evaluating drawTest.spl with the submitted solution.
+[2021-12-08 09:21:27.464878] Test subject results match (Success).
+[2021-12-08 09:21:27.475109] Outputs match.
+[2021-12-08 09:21:27.475185] Test passed.
+[2021-12-08 09:21:27.475203] Running Score: 8/8
+
+[2021-12-08 09:21:27.475233] Evaluating gcd.spl with the submitted solution.
+[2021-12-08 09:21:28.239598] Test subject results match (Success).
+[2021-12-08 09:21:28.249156] Outputs match.
+[2021-12-08 09:21:28.249242] Test passed.
+[2021-12-08 09:21:28.249260] Running Score: 9/9
+
+[2021-12-08 09:21:28.249291] Evaluating global_variable.spl with the submitted solution.
+[2021-12-08 09:21:28.588170] Test subject results match (Compiler Failure).
+[2021-12-08 09:21:28.588215] Exit code matches the expected exit code (100).
+[2021-12-08 09:21:28.588246] Test passed.
+[2021-12-08 09:21:28.588262] Running Score: 10/10
+
+[2021-12-08 09:21:28.588287] Evaluating lambda.spl with the submitted solution.
+[2021-12-08 09:21:32.685621] Test subject results match (Success).
+[2021-12-08 09:21:32.697951] Outputs match.
+[2021-12-08 09:21:32.698366] Test passed.
+[2021-12-08 09:21:32.698542] Running Score: 11/11
+
+[2021-12-08 09:21:32.698797] Evaluating multiply.spl with the submitted solution.
+[2021-12-08 09:21:33.405528] Test subject results match (Success).
+[2021-12-08 09:21:33.415061] Outputs match.
+[2021-12-08 09:21:33.415237] Test passed.
+[2021-12-08 09:21:33.415262] Running Score: 12/12
+
+[2021-12-08 09:21:33.415293] Evaluating partind1.spl with the submitted solution.
+[2021-12-08 09:21:34.351088] Test subject results match (Success).
+[2021-12-08 09:21:34.360460] Outputs match.
+[2021-12-08 09:21:34.360559] Test passed.
+[2021-12-08 09:21:34.360577] Running Score: 13/13
+
+[2021-12-08 09:21:34.360611] Evaluating partind2.spl with the submitted solution.
+[2021-12-08 09:21:35.420290] Test subject results match (Success).
+[2021-12-08 09:21:35.430987] Outputs match.
+[2021-12-08 09:21:35.431076] Test passed.
+[2021-12-08 09:21:35.431094] Running Score: 14/14
+
+[2021-12-08 09:21:35.431126] Evaluating queens.spl with the submitted solution.
+[2021-12-08 09:21:36.552632] Test subject results match (Success).
+[2021-12-08 09:21:36.563368] Outputs match.
+[2021-12-08 09:21:36.563450] Test passed.
+[2021-12-08 09:21:36.563467] Running Score: 15/15
+
+[2021-12-08 09:21:36.563500] Evaluating reftest.spl with the submitted solution.
+[2021-12-08 09:21:37.064730] Test subject results match (Success).
+[2021-12-08 09:21:37.074466] Outputs match.
+[2021-12-08 09:21:37.074546] Test passed.
+[2021-12-08 09:21:37.074564] Running Score: 16/16
+
+[2021-12-08 09:21:37.074598] Evaluating sierpinski.spl with the submitted solution.
+[2021-12-08 09:21:39.064443] Test subject results match (Success).
+[2021-12-08 09:21:39.074307] Outputs match.
+[2021-12-08 09:21:39.074395] Test passed.
+[2021-12-08 09:21:39.074557] Running Score: 17/17
+
+[2021-12-08 09:21:39.074612] Evaluating swap.spl with the submitted solution.
+[2021-12-08 09:21:39.731977] Test subject results match (Success).
+[2021-12-08 09:21:39.742137] Outputs match.
+[2021-12-08 09:21:39.742215] Test passed.
+[2021-12-08 09:21:39.742232] Running Score: 18/18
+
+[2021-12-08 09:21:39.742328] Evaluating test1.spl with the submitted solution.
+[2021-12-08 09:21:40.282979] Test subject results match (Success).
+[2021-12-08 09:21:40.292802] Outputs match.
+[2021-12-08 09:21:40.292967] Test passed.
+[2021-12-08 09:21:40.292992] Running Score: 19/19
+
+[2021-12-08 09:21:40.293066] Evaluating test2.spl with the submitted solution.
+[2021-12-08 09:21:40.890247] Test subject results match (Success).
+[2021-12-08 09:21:40.901211] Outputs match.
+[2021-12-08 09:21:40.901301] Test passed.
+[2021-12-08 09:21:40.901400] Running Score: 20/20
+
+[2021-12-08 09:21:40.901449] Evaluating test3.spl with the submitted solution.
+[2021-12-08 09:21:42.050941] Test subject results match (Success).
+[2021-12-08 09:21:42.060944] Outputs match.
+[2021-12-08 09:21:42.061158] Test passed.
+[2021-12-08 09:21:42.061183] Running Score: 21/21
+
+[2021-12-08 09:21:42.061216] Evaluating test4.spl with the submitted solution.
+[2021-12-08 09:21:42.834175] Test subject results match (Success).
+[2021-12-08 09:21:42.844023] Outputs match.
+[2021-12-08 09:21:42.844300] Test passed.
+[2021-12-08 09:21:42.844466] Running Score: 22/22
+
+[2021-12-08 09:21:42.844580] Evaluating test5.spl with the submitted solution.
+[2021-12-08 09:21:43.572760] Test subject results match (Success).
+[2021-12-08 09:21:43.583067] Outputs match.
+[2021-12-08 09:21:43.583152] Test passed.
+[2021-12-08 09:21:43.583170] Running Score: 23/23
+
+[2021-12-08 09:21:43.583203] Evaluating test6.spl with the submitted solution.
+[2021-12-08 09:21:44.276368] Test subject results match (Success).
+[2021-12-08 09:21:44.287266] Outputs match.
+[2021-12-08 09:21:44.287364] Test passed.
+[2021-12-08 09:21:44.287384] Running Score: 24/24
+
+[2021-12-08 09:21:44.287417] Evaluating test7.spl with the submitted solution.
+[2021-12-08 09:21:44.854974] Test subject results match (Success).
+[2021-12-08 09:21:44.864950] Outputs match.
+[2021-12-08 09:21:44.865069] Test passed.
+[2021-12-08 09:21:44.865088] Running Score: 25/25
+
+[2021-12-08 09:21:44.865120] Evaluating test8.spl with the submitted solution.
+[2021-12-08 09:21:45.452190] Test subject results match (Success).
+[2021-12-08 09:21:45.462360] Outputs match.
+[2021-12-08 09:21:45.462440] Test passed.
+[2021-12-08 09:21:45.462458] Running Score: 26/26
+
+[2021-12-08 09:21:45.462558] Evaluating test9.spl with the submitted solution.
+[2021-12-08 09:21:46.088333] Test subject results match (Success).
+[2021-12-08 09:21:46.096938] Outputs match.
+[2021-12-08 09:21:46.097167] Test passed.
+[2021-12-08 09:21:46.097199] Running Score: 27/27
+
+[2021-12-08 09:21:46.097234] Evaluating threedim.spl with the submitted solution.
+[2021-12-08 09:21:47.088256] Test subject results match (Success).
+[2021-12-08 09:21:47.098868] Outputs match.
+[2021-12-08 09:21:47.098951] Test passed.
+[2021-12-08 09:21:47.098969] Running Score: 28/28
+
+[2021-12-08 09:21:47.099004] Evaluating time.spl with the submitted solution.
+[2021-12-08 09:21:47.778877] Test subject results match (Success).
+[2021-12-08 09:21:47.788380] Outputs match.
+[2021-12-08 09:21:47.788465] Test passed.
+[2021-12-08 09:21:47.788483] Running Score: 29/29
+
+[2021-12-08 09:21:47.788516] Evaluating trailing_argument_comma.spl with the submitted solution.
+[2021-12-08 09:21:48.233898] Results do not match. Expected Compiler Failure(100), but got Success(0).
+[2021-12-08 09:21:48.233969] Output (stdout) of 'java -jar /home/solution/java/target/spl.jar --absyn /home/tests/trailing_argument_comma.spl /home/temp/trailing_argument_comma.spl.s' (Limited to 50 lines/10000 characters):
+Program(
+  ProcedureDeclaration(
+    main,
+    Parameters(),
+    Variables(),
+    Body(
+      CallStatement(
+        f,
+        Arguments(
+          IntLiteral(
+            1))))))
+[2021-12-08 09:21:48.235178] Output (stderr) of 'java -jar /home/solution/java/target/spl.jar --absyn /home/tests/trailing_argument_comma.spl /home/temp/trailing_argument_comma.spl.s' (Limited to 50 lines/10000 characters):
+# Initializing parser
+# Current Symbol is #23
+# Shift under term #23 to state #5
+# Current token is #31
+# Shift under term #31 to state #20
+# Current token is #4
+# Shift under term #4 to state #21
+# Current token is #5
+# Reduce with prod #36 [NT=6, SZ=0]
+# Reduce rule: top state 21, lhs sym 6 -> state 25
+# Goto state #25
+# Shift under term #5 to state #26
+# Current token is #6
+# Shift under term #6 to state #27
+# Current token is #31
+# Reduce with prod #42 [NT=7, SZ=0]
+# Reduce rule: top state 27, lhs sym 7 -> state 29
+# Goto state #29
+# Shift under term #31 to state #32
+# Current token is #4
+# Shift under term #4 to state #90
+# Current token is #32
+# Shift under term #32 to state #51
+# Current token is #19
+# Reduce with prod #26 [NT=22, SZ=1]
+# Reduce rule: top state 90, lhs sym 22 -> state 50
+# Goto state #50
+# Reduce with prod #11 [NT=27, SZ=1]
+# Reduce rule: top state 90, lhs sym 27 -> state 55
+# Goto state #55
+# Reduce with prod #8 [NT=26, SZ=1]
+# Reduce rule: top state 90, lhs sym 26 -> state 58
+# Goto state #58
+# Reduce with prod #7 [NT=25, SZ=1]
+# Reduce rule: top state 90, lhs sym 25 -> state 52
+# Goto state #52
+# Reduce with prod #5 [NT=24, SZ=1]
+# Reduce rule: top state 90, lhs sym 24 -> state 57
+# Goto state #57
+# Reduce with prod #3 [NT=23, SZ=1]
+# Reduce rule: top state 90, lhs sym 23 -> state 91
+# Goto state #91
+# Shift under term #19 to state #95
+# Current token is #5
+# Reduce with prod #59 [NT=19, SZ=0]
+# Reduce rule: top state 95, lhs sym 19 -> state 97
+# Goto state #97
+# Reduce with prod #60 [NT=18, SZ=2]
+# Reduce rule: top state 91, lhs sym 18 -> state 96
+# Goto state #96
+[2021-12-08 09:21:48.235478] Test not passed.
+[2021-12-08 09:21:48.235495] Running Score: 29/30
+
+[2021-12-08 09:21:48.235523] Evaluating trailing_parameter_comma.spl with the submitted solution.
+[2021-12-08 09:21:48.684261] Results do not match. Expected Compiler Failure(100), but got Success(0).
+[2021-12-08 09:21:48.684323] Output (stdout) of 'java -jar /home/solution/java/target/spl.jar --absyn /home/tests/trailing_parameter_comma.spl /home/temp/trailing_parameter_comma.spl.s' (Limited to 50 lines/10000 characters):
+Program(
+  ProcedureDeclaration(
+    f,
+    Parameters(
+      ParameterDeclaration(
+        x,
+        NamedTypeExpression(
+          int),
+        false)),
+    Variables(),
+    Body()))
+[2021-12-08 09:21:48.684423] Output (stderr) of 'java -jar /home/solution/java/target/spl.jar --absyn /home/tests/trailing_parameter_comma.spl /home/temp/trailing_parameter_comma.spl.s' (Limited to 50 lines/10000 characters):
+# Initializing parser
+# Current Symbol is #23
+# Shift under term #23 to state #5
+# Current token is #31
+# Shift under term #31 to state #20
+# Current token is #4
+# Shift under term #4 to state #21
+# Current token is #31
+# Shift under term #31 to state #24
+# Current token is #20
+# Shift under term #20 to state #107
+# Current token is #31
+# Shift under term #31 to state #10
+# Current token is #19
+# Reduce with prod #32 [NT=4, SZ=1]
+# Reduce rule: top state 107, lhs sym 4 -> state 108
+# Goto state #108
+# Reduce with prod #37 [NT=8, SZ=3]
+# Reduce rule: top state 21, lhs sym 8 -> state 22
+# Goto state #22
+# Shift under term #19 to state #112
+# Current token is #5
+# Reduce with prod #36 [NT=6, SZ=0]
+# Reduce rule: top state 112, lhs sym 6 -> state 114
+# Goto state #114
+# Reduce with prod #39 [NT=9, SZ=2]
+# Reduce rule: top state 22, lhs sym 9 -> state 113
+# Goto state #113
+# Reduce with prod #35 [NT=6, SZ=2]
+# Reduce rule: top state 21, lhs sym 6 -> state 25
+# Goto state #25
+# Shift under term #5 to state #26
+# Current token is #6
+# Shift under term #6 to state #27
+# Current token is #7
+# Reduce with prod #42 [NT=7, SZ=0]
+# Reduce rule: top state 27, lhs sym 7 -> state 29
+# Goto state #29
+# Reduce with prod #44 [NT=10, SZ=0]
+# Reduce rule: top state 29, lhs sym 10 -> state 37
+# Goto state #37
+# Shift under term #7 to state #86
+# Current token is #0
+# Reduce with prod #34 [NT=5, SZ=9]
+# Reduce rule: top state 0, lhs sym 5 -> state 2
+# Goto state #2
+# Reduce with prod #30 [NT=1, SZ=1]
+# Reduce rule: top state 0, lhs sym 1 -> state 6
+# Goto state #6
+# Reduce with prod #28 [NT=2, SZ=0]
+[2021-12-08 09:21:48.684710] Test not passed.
+[2021-12-08 09:21:48.684726] Running Score: 29/31
+
+[2021-12-08 09:21:48.684751] Evaluating twodim.spl with the submitted solution.
+[2021-12-08 09:21:49.547558] Test subject results match (Success).
+[2021-12-08 09:21:49.557294] Outputs match.
+[2021-12-08 09:21:49.557461] Test passed.
+[2021-12-08 09:21:49.557493] Running Score: 30/32
+
+[2021-12-08 09:21:49.557528] Evaluating unary_plus.spl with the submitted solution.
+[2021-12-08 09:21:49.913550] Test subject results match (Compiler Failure).
+[2021-12-08 09:21:49.913690] Exit code matches the expected exit code (100).
+[2021-12-08 09:21:49.913737] Test passed.
+[2021-12-08 09:21:49.913754] Running Score: 31/33
+
+[2021-12-08 09:21:49.913846] Final score: 31/33 (93%). 
+[2021-12-08 09:21:49.914011] 100% are needed to pass.
+[2021-12-08 09:21:50.125601] You have NOT PASSED this assignment.
+[2021-12-08 09:21:50.125929] You can try again. Deadline: 12.12.2021 23:59
+

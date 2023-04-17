@@ -1,0 +1,266 @@
+Symbol table at end of procedure 'callbyval':
+  level 0
+    x               --> var: int
+    y               --> var: int
+  level 1
+    callbyval       --> proc: (int, int)
+    clearAll        --> proc: (int)
+    drawCircle      --> proc: (int, int, int, int)
+    drawLine        --> proc: (int, int, int, int, int)
+    exit            --> proc: ()
+    int             --> type: int
+    myInt           --> type: int
+    printc          --> proc: (int)
+    printi          --> proc: (int)
+    readc           --> proc: (ref int)
+    readi           --> proc: (ref int)
+    setPixel        --> proc: (int, int, int)
+    time            --> proc: (ref int)
+
+Symbol table at end of procedure 'callbyref':
+  level 0
+    x               --> var: ref int
+    y               --> var: ref int
+  level 1
+    callbyref       --> proc: (ref int, ref int)
+    callbyval       --> proc: (int, int)
+    clearAll        --> proc: (int)
+    drawCircle      --> proc: (int, int, int, int)
+    drawLine        --> proc: (int, int, int, int, int)
+    exit            --> proc: ()
+    int             --> type: int
+    myInt           --> type: int
+    printc          --> proc: (int)
+    printi          --> proc: (int)
+    readc           --> proc: (ref int)
+    readi           --> proc: (ref int)
+    setPixel        --> proc: (int, int, int)
+    time            --> proc: (ref int)
+    vektor          --> type: array [10] of int
+
+Symbol table at end of procedure 'callArray':
+  level 0
+    v               --> var: ref array [10] of int
+  level 1
+    callArray       --> proc: (ref array [10] of int)
+    callbyref       --> proc: (ref int, ref int)
+    callbyval       --> proc: (int, int)
+    clearAll        --> proc: (int)
+    drawCircle      --> proc: (int, int, int, int)
+    drawLine        --> proc: (int, int, int, int, int)
+    exit            --> proc: ()
+    int             --> type: int
+    myInt           --> type: int
+    printc          --> proc: (int)
+    printi          --> proc: (int)
+    readc           --> proc: (ref int)
+    readi           --> proc: (ref int)
+    setPixel        --> proc: (int, int, int)
+    time            --> proc: (ref int)
+    vektor          --> type: array [10] of int
+
+Symbol table at end of procedure 'callRecursive':
+  level 0
+    n               --> var: int
+    res             --> var: ref int
+  level 1
+    callArray       --> proc: (ref array [10] of int)
+    callRecursive   --> proc: (int, ref int)
+    callbyref       --> proc: (ref int, ref int)
+    callbyval       --> proc: (int, int)
+    clearAll        --> proc: (int)
+    drawCircle      --> proc: (int, int, int, int)
+    drawLine        --> proc: (int, int, int, int, int)
+    exit            --> proc: ()
+    int             --> type: int
+    matrix          --> type: array [8] of array [8] of int
+    myInt           --> type: int
+    printc          --> proc: (int)
+    printi          --> proc: (int)
+    readc           --> proc: (ref int)
+    readi           --> proc: (ref int)
+    setPixel        --> proc: (int, int, int)
+    tensor          --> type: array [16] of array [8] of array [8] of int
+    time            --> proc: (ref int)
+    vektor          --> type: array [10] of int
+
+Symbol table at end of procedure 'manyargs':
+  level 0
+    i               --> var: int
+    j               --> var: int
+    k               --> var: ref array [16] of array [8] of array [8] of int
+    l               --> var: ref int
+  level 1
+    callArray       --> proc: (ref array [10] of int)
+    callRecursive   --> proc: (int, ref int)
+    callbyref       --> proc: (ref int, ref int)
+    callbyval       --> proc: (int, int)
+    clearAll        --> proc: (int)
+    drawCircle      --> proc: (int, int, int, int)
+    drawLine        --> proc: (int, int, int, int, int)
+    exit            --> proc: ()
+    int             --> type: int
+    manyargs        --> proc: (int, int, ref array [16] of array [8] of array [8] of int, ref int)
+    matrix          --> type: array [8] of array [8] of int
+    myInt           --> type: int
+    printc          --> proc: (int)
+    printi          --> proc: (int)
+    readc           --> proc: (ref int)
+    readi           --> proc: (ref int)
+    setPixel        --> proc: (int, int, int)
+    tensor          --> type: array [16] of array [8] of array [8] of int
+    time            --> proc: (ref int)
+    vektor          --> type: array [10] of int
+
+Symbol table at end of procedure 'hide':
+  level 0
+    hide            --> var: int
+    myInt           --> var: int
+  level 1
+    callArray       --> proc: (ref array [10] of int)
+    callRecursive   --> proc: (int, ref int)
+    callbyref       --> proc: (ref int, ref int)
+    callbyval       --> proc: (int, int)
+    clearAll        --> proc: (int)
+    drawCircle      --> proc: (int, int, int, int)
+    drawLine        --> proc: (int, int, int, int, int)
+    exit            --> proc: ()
+    hide            --> proc: ()
+    int             --> type: int
+    manyargs        --> proc: (int, int, ref array [16] of array [8] of array [8] of int, ref int)
+    matrix          --> type: array [8] of array [8] of int
+    myInt           --> type: int
+    printc          --> proc: (int)
+    printi          --> proc: (int)
+    readc           --> proc: (ref int)
+    readi           --> proc: (ref int)
+    setPixel        --> proc: (int, int, int)
+    tensor          --> type: array [16] of array [8] of array [8] of int
+    time            --> proc: (ref int)
+    vektor          --> type: array [10] of int
+
+Symbol table at end of procedure 'main':
+  level 0
+    i               --> var: int
+    j               --> var: int
+    k               --> var: array [10] of int
+    l               --> var: array [8] of array [8] of int
+    m               --> var: array [5] of array [10] of int
+    n               --> var: array [10] of int
+    t               --> var: array [16] of array [8] of array [8] of int
+  level 1
+    callArray       --> proc: (ref array [10] of int)
+    callRecursive   --> proc: (int, ref int)
+    callbyref       --> proc: (ref int, ref int)
+    callbyval       --> proc: (int, int)
+    clearAll        --> proc: (int)
+    drawCircle      --> proc: (int, int, int, int)
+    drawLine        --> proc: (int, int, int, int, int)
+    exit            --> proc: ()
+    hide            --> proc: ()
+    int             --> type: int
+    main            --> proc: ()
+    manyargs        --> proc: (int, int, ref array [16] of array [8] of array [8] of int, ref int)
+    matrix          --> type: array [8] of array [8] of int
+    myInt           --> type: int
+    printc          --> proc: (int)
+    printi          --> proc: (int)
+    readc           --> proc: (ref int)
+    readi           --> proc: (ref int)
+    setPixel        --> proc: (int, int, int)
+    tensor          --> type: array [16] of array [8] of array [8] of int
+    time            --> proc: (ref int)
+    vektor          --> type: array [10] of int
+
+Symbol table at end of procedure 'ausgabe':
+  level 0
+    nummer          --> var: int
+  level 1
+    ausgabe         --> proc: (int)
+    callArray       --> proc: (ref array [10] of int)
+    callRecursive   --> proc: (int, ref int)
+    callbyref       --> proc: (ref int, ref int)
+    callbyval       --> proc: (int, int)
+    clearAll        --> proc: (int)
+    drawCircle      --> proc: (int, int, int, int)
+    drawLine        --> proc: (int, int, int, int, int)
+    exit            --> proc: ()
+    hide            --> proc: ()
+    int             --> type: int
+    main            --> proc: ()
+    manyargs        --> proc: (int, int, ref array [16] of array [8] of array [8] of int, ref int)
+    matrix          --> type: array [8] of array [8] of int
+    myInt           --> type: int
+    printc          --> proc: (int)
+    printi          --> proc: (int)
+    readc           --> proc: (ref int)
+    readi           --> proc: (ref int)
+    setPixel        --> proc: (int, int, int)
+    tensor          --> type: array [16] of array [8] of array [8] of int
+    time            --> proc: (ref int)
+    vektor          --> type: array [10] of int
+
+Symbol table at end of procedure 'check':
+  level 0
+    expectedI       --> var: int
+    expectedJ       --> var: int
+    i               --> var: int
+    j               --> var: int
+  level 1
+    ausgabe         --> proc: (int)
+    callArray       --> proc: (ref array [10] of int)
+    callRecursive   --> proc: (int, ref int)
+    callbyref       --> proc: (ref int, ref int)
+    callbyval       --> proc: (int, int)
+    check           --> proc: (int, int, int, int)
+    clearAll        --> proc: (int)
+    drawCircle      --> proc: (int, int, int, int)
+    drawLine        --> proc: (int, int, int, int, int)
+    exit            --> proc: ()
+    hide            --> proc: ()
+    int             --> type: int
+    main            --> proc: ()
+    manyargs        --> proc: (int, int, ref array [16] of array [8] of array [8] of int, ref int)
+    matrix          --> type: array [8] of array [8] of int
+    myInt           --> type: int
+    printc          --> proc: (int)
+    printi          --> proc: (int)
+    readc           --> proc: (ref int)
+    readi           --> proc: (ref int)
+    setPixel        --> proc: (int, int, int)
+    tensor          --> type: array [16] of array [8] of array [8] of int
+    time            --> proc: (ref int)
+    vektor          --> type: array [10] of int
+
+Symbol table at end of procedure 'error':
+  level 0
+    expectedI       --> var: int
+    i               --> var: int
+  level 1
+    ausgabe         --> proc: (int)
+    callArray       --> proc: (ref array [10] of int)
+    callRecursive   --> proc: (int, ref int)
+    callbyref       --> proc: (ref int, ref int)
+    callbyval       --> proc: (int, int)
+    check           --> proc: (int, int, int, int)
+    clearAll        --> proc: (int)
+    drawCircle      --> proc: (int, int, int, int)
+    drawLine        --> proc: (int, int, int, int, int)
+    error           --> proc: (int, int)
+    exit            --> proc: ()
+    hide            --> proc: ()
+    int             --> type: int
+    main            --> proc: ()
+    manyargs        --> proc: (int, int, ref array [16] of array [8] of array [8] of int, ref int)
+    matrix          --> type: array [8] of array [8] of int
+    myInt           --> type: int
+    printc          --> proc: (int)
+    printi          --> proc: (int)
+    readc           --> proc: (ref int)
+    readi           --> proc: (ref int)
+    setPixel        --> proc: (int, int, int)
+    tensor          --> type: array [16] of array [8] of array [8] of int
+    time            --> proc: (ref int)
+    vektor          --> type: array [10] of int
+
+

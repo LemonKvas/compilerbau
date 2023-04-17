@@ -1,0 +1,24 @@
+Program(
+  TypeDeclaration(
+    A3,
+    ArrayTypeExpression(
+      NamedTypeExpression(
+        int),
+      3)),
+  ProcedureDeclaration(
+    main,
+    Parameters(),
+    Variables(
+      VariableDeclaration(
+        i,
+        NamedTypeExpression(
+          A3))),
+    Body(
+      AssignStatement(
+        ArrayAccess(
+          NamedVariable(
+            i),
+          IntLiteral(
+            1)),
+        IntLiteral(
+          8)))))

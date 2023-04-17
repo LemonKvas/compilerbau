@@ -1,0 +1,213 @@
+package de.thm.mni.compilerbau.phases._02_03_parser;
+
+import java.util.List;
+import java.util.LinkedList;
+import java_cup.runtime.*;
+import de.thm.mni.compilerbau.phases._01_scanner.Scanner;
+import de.thm.mni.compilerbau.absyn.*;
+import de.thm.mni.compilerbau.table.Identifier;
+import de.thm.mni.compilerbau.utils.SplError;
+import de.thm.mni.compilerbau.CommandLineOptions;
+import de.thm.mni.compilerbau.phases._02_03_parser.Sym;
+
+parser code {:
+  public CommandLineOptions options = null;
+
+  public void syntax_error(Symbol currentToken) {
+    throw SplError.SyntaxError(new Position(currentToken.left, currentToken.right), ((Scanner)getScanner()).yytext());
+  }
+  
+  /**
+   * @return An empty list. (Uses LinkedList)
+   */
+  public static <E> List<E> nil() {
+      return new LinkedList<E>();
+  }
+  
+  /**
+   * Constructs a list from a head and a tail without modifying the tail (Uses LinkedList).
+   * Use this as a helper if you don't want to deal with constructing lists manually.
+   *
+   * @param head The head of the list
+   * @param tail The tail of the list
+   * @return A list containing the head element and all elements of tail
+   */
+  public static <E> List<E> cons(E head, List<E> tail) {
+    List<E> copy = new LinkedList(tail);
+    copy.add(0, head);
+    return copy;
+  }
+:}
+
+/* Terminals/Tokens */
+terminal LBRACK, RBRACK, LPAREN, RPAREN, LCURL, RCURL;         //Braces, parenthesis, brackets
+terminal LT, LE, GT, GE, NE, EQ;                               //Comparison operators
+terminal PLUS, MINUS, STAR, SLASH;                             //Arithmetic operators
+terminal ASGN, COMMA, COLON, SEMIC;                            //Other delimiters
+terminal TYPE, PROC, ARRAY, OF, REF, VAR, IF, ELSE, WHILE;     //Keywords
+terminal Identifier IDENT;    //Identifiers
+terminal Integer INTLIT;      //Integer literals
+
+/* Non-terminals */
+non terminal Program program;
+
+non terminal GlobalDeclaration globalDeclaration;
+non terminal List<GlobalDeclaration> globalDeclarations;
+non terminal TypeDeclaration typeDeclaration ; // TypeDeclartion
+non terminal TypeExpression typeExpression ; // TypeExpression
+non terminal ProcedureDeclaration procedureDeclaration ; //ProcedureDeclation
+non terminal List<ParameterDeclaration> parameter ; // ParameterDeclaration
+non terminal List<VariableDeclaration> variables;
+non terminal ParameterDeclaration var;
+non terminal List<ParameterDeclaration> subsequentVar ;
+non terminal List<Statement>statements;
+non terminal Statement statement;
+non terminal WhileStatement whilestatement;
+non terminal IfStatement ifstatement;
+non terminal AssignStatement assignstatement;
+non terminal CallStatement callstatement;
+non terminal CompoundStatement compoundstatement;
+non terminal EmptyStatement emptystatement;
+non terminal List<Expression> callParameters;
+non terminal List<Expression> callParameter;
+non terminal Expression arrayIndex;
+non terminal Variable variable;
+non terminal Expression intLiteral;
+
+// expressions
+non terminal Expression expressions;
+non terminal Expression exLine;
+non terminal Expression exPoint;
+non terminal Expression exUnaere;
+non terminal Expression exFinal;
+// expression operations
+non terminal BinaryExpression.Operator compOp;
+non terminal BinaryExpression.Operator lineOp;
+non terminal BinaryExpression.Operator pointOp;
+
+start with program;
+
+program ::= globalDeclarations:prog {:RESULT = new Program(new Position(progleft,progright),prog);:};
+
+//expression
+expressions ::= exLine: expL compOp: operator exLine: expR
+{: RESULT = new BinaryExpression(new Position(expLleft,expLright), operator, expL, expR) ;:}
+| exLine: exp {: RESULT = exp;:};
+
+exLine ::= exLine: expL lineOp: operator exPoint: expR
+{: RESULT = new BinaryExpression(new Position(expLleft,expLright), operator, expL, expR) ;:}
+| exPoint: exp {: RESULT = exp;:};
+
+exPoint ::= exPoint: expL pointOp: operator exUnaere: expR
+{: RESULT = new BinaryExpression(new Position(expLleft,expLright), operator, expL, expR) ;:}
+| exUnaere: exp {: RESULT = exp;:};
+
+exUnaere ::= exFinal:exp {:RESULT = exp;:} | MINUS:minus exFinal:exp {:RESULT = new BinaryExpression(
+                                             new Position(expleft,expright),
+                                             BinaryExpression.Operator.SUB,
+                                             new IntLiteral(
+                                             new Position(minusleft,minusright),
+                                             0),
+                                             exp);:};
+
+exFinal ::= LPAREN expressions: exp RPAREN {: RESULT = exp;:}
+| intLiteral: exp {: RESULT = exp;:};
+
+
+//expression operations
+compOp ::=  LT {: RESULT = BinaryExpression.Operator.LST;:}
+| LE {: RESULT = BinaryExpression.Operator.LSE;:}
+| GT {: RESULT = BinaryExpression.Operator.GRT;:}
+| GE {: RESULT = BinaryExpression.Operator.GRE;:}
+| NE {: RESULT = BinaryExpression.Operator.NEQ;:}
+| EQ{: RESULT = BinaryExpression.Operator.EQU;:};
+
+lineOp ::=  PLUS {: RESULT = BinaryExpression.Operator.ADD;:}
+| MINUS {: RESULT = BinaryExpression.Operator.SUB;:};
+
+pointOp ::= STAR {: RESULT = BinaryExpression.Operator.MUL;:}
+| SLASH {: RESULT = BinaryExpression.Operator.DIV;:};
+
+
+arrayIndex ::= LBRACK expressions:exp RBRACK {:RESULT = exp;:};
+
+variable ::= variable:array arrayIndex:index {:RESULT = new ArrayAccess(new Position(arrayleft,arrayright),array,index);:}
+| IDENT:ident {:RESULT = new NamedVariable(new Position(identleft,identright),ident);:};
+
+intLiteral ::= variable:var {:RESULT = new VariableExpression(new Position(varleft,varright),var);:} // VariableExpression
+| INTLIT:intlit {:RESULT = new IntLiteral(new Position(intlitleft,intlitright),intlit);:};
+
+globalDeclarations ::= globalDeclaration:dec globalDeclarations:declist {:RESULT = cons(dec,declist);:}
+| {:RESULT = nil();:};
+
+globalDeclaration ::= typeDeclaration:typedec {:RESULT = typedec;:}
+| procedureDeclaration:procdec {:RESULT = procdec;:};
+
+// Type
+typeDeclaration ::= TYPE:pos IDENT:ident EQ typeExpression:type SEMIC
+{:RESULT = new TypeDeclaration(new Position(posleft,posright),ident,type);:};
+
+typeExpression ::= IDENT:ident
+{:RESULT = new NamedTypeExpression(new Position(identleft,identright),ident);:}
+| ARRAY:pos LBRACK INTLIT:index RBRACK OF typeExpression:type
+{:RESULT = new ArrayTypeExpression(new Position(posleft,posright),type,index);:};
+
+
+// Proc
+procedureDeclaration ::= PROC:pos IDENT:ident LPAREN parameter:para RPAREN LCURL variables:vars statements:statements RCURL
+{:RESULT = new ProcedureDeclaration(new Position(posleft,posright),ident,para,vars,statements);:};
+
+// Proc Arguments
+parameter ::= var:param subsequentVar:paramlist {:RESULT = cons(param,paramlist);:}
+| {:RESULT = nil();:};
+
+var ::= IDENT:ident COLON typeExpression:type
+{:RESULT = new ParameterDeclaration(new Position(identleft,identright),ident,type,false);:}
+| REF IDENT:ident COLON typeExpression:type
+{:RESULT = new ParameterDeclaration(new Position(identleft,identright),ident,type,true);:};
+
+subsequentVar ::= COMMA var:param subsequentVar:paramlist {:RESULT = cons(param,paramlist);:}
+| {:RESULT = nil();:};
+
+//Proc Variables
+variables ::= VAR:pos IDENT:ident COLON typeExpression:type SEMIC variables:varlist
+{:RESULT = cons(new VariableDeclaration(new Position(posleft,posright),ident,type), varlist);:}
+| {:RESULT = nil();:};
+
+// statements
+statements ::= statement:statement statements:statementlist {:RESULT = cons(statement, statementlist);:}
+| {:RESULT = nil();:};
+
+statement ::= assignstatement:assignstat {:RESULT = assignstat;:}
+| ifstatement:ifstat {:RESULT = ifstat;:}
+| whilestatement:whilestat {:RESULT = whilestat;:}
+| callstatement:callstat {:RESULT = callstat;:}
+| compoundstatement:compstat {:RESULT = compstat;:}
+| emptystatement:emptystat {:RESULT = emptystat;:};
+
+ifstatement ::= IF:pos LPAREN expressions:exp RPAREN  statement:truestatement
+{:RESULT = new IfStatement(new Position(posleft,posright),exp,truestatement,new EmptyStatement(Position.ERROR_POSITION));:}
+| IF:pos LPAREN expressions:exp RPAREN statement:truestatement ELSE statement:falsestatement
+{: RESULT = new IfStatement(new Position(posleft,posright),exp,truestatement,falsestatement);:};
+
+whilestatement ::= WHILE:pos LPAREN expressions:exp RPAREN statement:stat
+{:RESULT = new WhileStatement(new Position(posleft,posright),exp,stat);:};
+
+
+callstatement ::= IDENT:ident LPAREN callParameter:callparam RPAREN SEMIC
+{:RESULT = new CallStatement(new Position(identleft,identright),ident,callparam);:};
+
+assignstatement ::= variable:ident ASGN expressions:expr SEMIC
+{:RESULT = new AssignStatement(new Position(identleft,identright),ident,expr);:};
+
+emptystatement ::= SEMIC:pos {:RESULT = new EmptyStatement(new Position(posleft,posright));:};
+
+compoundstatement ::= LCURL statements:stat RCURL
+{:RESULT = new CompoundStatement(new Position(statleft,statright),stat);:};
+
+// callParametes
+callParameter ::= expressions:param callParameters:paramlist {:RESULT = cons(param,paramlist);:}
+| {:RESULT = nil();:};
+
+callParameters ::= COMMA expressions:param callParameters:paramlist {:RESULT = cons(param,paramlist);:}
+| {:RESULT = nil();:};

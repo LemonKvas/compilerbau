@@ -1,0 +1,9 @@
+type A3 = array [3] of int;
+
+proc main() {
+
+var i : A3;
+
+i[1] := 8;
+
+}
